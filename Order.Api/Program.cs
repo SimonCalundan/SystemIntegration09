@@ -1,4 +1,6 @@
 
+using Microsoft.EntityFrameworkCore;
+using Order.Api.Data;
 using Scalar.AspNetCore;
 
 namespace Order.Api;
@@ -11,6 +13,9 @@ public class Program
         builder.AddServiceDefaults();
         builder.AddRabbitMQClient("messaging");
         // Add services to the container.
+        
+        builder.Services.AddDbContext<OrderDbContext>(options =>
+            options.UseInMemoryDatabase("OrdersDb"));
 
         builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
